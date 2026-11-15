@@ -1,6 +1,6 @@
 SHELL := /bin/bash
-PY := .venv/bin/python
-PIP := .venv/bin/pip
+PY := $(CURDIR)/.venv/bin/python
+PIP := $(CURDIR)/.venv/bin/pip
 PORT ?= 8000
 GROUND_PORT ?= 8001
 
