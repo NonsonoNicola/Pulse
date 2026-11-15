@@ -49,26 +49,26 @@ dev:
 	wait
 
 seed:
-	$(PY) -m app.sim.seed --reset --app-dir backend
+	cd backend && $(PY) -m app.sim.seed --reset
 
 demo: setup seed
 	@echo "Synthetic demo data ready. Starting Pulse..."
 	@$(MAKE) dev
 
 demo-reset:
-	$(PY) -m app.sim.seed --reset --app-dir backend
+	cd backend && $(PY) -m app.sim.seed --reset
 
 test:
-	$(PY) -m pytest -q -c backend/pytest.ini
+	cd backend && $(PY) -m pytest -q
 
 demo-check:
-	$(PY) -m pytest -q -c backend/pytest.ini backend/tests/test_scenarios.py
+	cd backend && $(PY) -m pytest -q tests/test_scenarios.py
 
 rebuild-projections:
-	$(PY) -m app.projections --app-dir backend
+	cd backend && $(PY) -m app.projections
 
 eval:
-	$(PY) -m app.llm.evaluation --app-dir backend
+	cd backend && $(PY) -m app.llm.evaluation
 
 clean:
 	rm -rf data .pytest_cache backend/.pytest_cache frontend/dist
