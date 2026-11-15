@@ -23,19 +23,19 @@ Pulse is a lightweight health monitoring and decision-support system for long-du
 # Clone and enter directory
 cd Pulse
 
-# One-command setup + demo data + run all services
+# One-command: setup + seed + run all services
 make demo
 ```
 
-This starts:
+This runs `make setup` (creates venv, installs deps), seeds demo data, and starts:
 - Backend API at `http://127.0.0.1:8000`
 - Ground console at `http://127.0.0.1:8001`
 - Frontend at `http://127.0.0.1:5173`
 
-## Manual Commands
+## Manual Commands (if you want step by step)
 
 ```bash
-make setup      # Install deps (Python 3.12 venv + npm)
+make setup      # Install deps (Python 3.12 venv + npm) — run once
 make seed       # Generate synthetic mission data
 make dev        # Run backend + ground + frontend
 make test       # Run test suite

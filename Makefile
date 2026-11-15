@@ -51,7 +51,7 @@ dev:
 seed:
 	$(PY) -m app.sim.seed --reset --app-dir backend
 
-demo: seed
+demo: setup seed
 	@echo "Synthetic demo data ready. Starting Pulse..."
 	@$(MAKE) dev
 
