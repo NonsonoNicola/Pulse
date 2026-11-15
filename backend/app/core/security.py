@@ -10,7 +10,7 @@ from app.core.db import Database
 from app.core.timeutil import iso, utcnow
 
 PBKDF2_ITERATIONS = 210_000
-SESSION_COOKIE = "crewmd_session"
+SESSION_COOKIE = "pulse_session"
 
 
 def hash_password(password: str, salt: bytes | None = None) -> str:

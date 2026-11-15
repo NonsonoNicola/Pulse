@@ -49,30 +49,39 @@ def login(
     user = authenticator.login(payload.username, payload.password)
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
+    # In Codespaces, frontend and backend are on different subdomains.
+    # Use secure, same-site none, and domain=.app.github.dev for cross-subdomain cookies.
+    import os
+    is_codespaces = os.environ.get("CODESPACE_NAME") is not None
+    cookie_domain = ".app.github.dev" if is_codespaces else None
     response.set_cookie(
-        key="crewmd_session",
+        key="pulse_session",
         value=user["token"],
         httponly=True,
-        secure=False,
-        samesite="lax",
+        secure=is_codespaces,
+        samesite="none" if is_codespaces else "lax",
         max_age=30 * 24 * 3600,
         path="/",
+        domain=cookie_domain,
     )
     return LoginOut(user=Authenticator.public_user(user), token=user["token"])
 
 
 @router.post("/logout")
-def logout(response: Response, token: str | None = Cookie(None, alias="crewmd_session")):
+def logout(response: Response, token: str | None = Cookie(None, alias="pulse_session")):
     if token:
         auth = Authenticator(get_db())
         auth.logout(token)
-    response.delete_cookie("crewmd_session", path="/")
+    import os
+    is_codespaces = os.environ.get("CODESPACE_NAME") is not None
+    cookie_domain = ".app.github.dev" if is_codespaces else None
+    response.delete_cookie("pulse_session", path="/", secure=is_codespaces, samesite="none" if is_codespaces else "lax", domain=cookie_domain)
     return {"ok": True}
 
 
 @router.get("/me", response_model=UserOut)
 def me(
-    token: str | None = Cookie(None, alias="crewmd_session"),
+    token: str | None = Cookie(None, alias="pulse_session"),
     authenticator: Authenticator = Depends(get_authenticator),
 ):
     user = authenticator.user_for_token(token)
@@ -90,7 +99,7 @@ def mission():
 
 # Shared dependency for protected routes
 def get_current_user(
-    token: str | None = Cookie(None, alias="crewmd_session"),
+    token: str | None = Cookie(None, alias="pulse_session"),
     authenticator: Authenticator = Depends(get_authenticator),
 ):
     if not token:
