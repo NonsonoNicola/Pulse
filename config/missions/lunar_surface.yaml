@@ -1,0 +1,19 @@
+id: lunar_surface
+name: Lunar Surface
+habitat: Artemis surface habitat · South polar region
+description: Lunar surface mission with ~1.3 s one-way light-time and local dust/radiation exposure.
+gravity: 1/6 g
+radiation: 1.0–2.5 mSv/day (shielded habitat)
+environmental_risks: [lunar_dust, radiation, reduced_gravity, thermal_extremes]
+medical_resources: [ultrasound, ecg, defibrillator, oxygen_supply, iv_fluids, medication_cabinet, splint]
+link:
+  latency_s: 1.3
+  jitter_s: 0.4
+  loss: 0.06
+  blackout_seconds: 1800
+  bandwidth_kbps: 900
+  description: 1.3 s one-way delay; periodic 30-minute communication windows lost during surface operations.
+reference_adjustments:
+  resting_hr_delta: 1
+  spo2_delta: 0
+status: NEEDS_CLINICAL_REVIEW

@@ -1,0 +1,33 @@
+# Honest gamification configuration
+status: NEEDS_CLINICAL_REVIEW
+principles:
+  - Reward the act of reporting, never a health outcome.
+  - Never reset a streak.
+  - No individual leaderboards and no points for being healthy.
+
+honesty_streak:
+  counts:
+    - checkin
+    - skipped_checkin
+    - backfill_day
+  window_days: 90
+  never_reset: true
+
+time_bank:
+  standard_daily_test_minutes: 10
+  adaptive_budget_minutes: 5
+  count_minutes_saved_when_confidence_at_least: medium
+
+sentinel_badge:
+  enabled: true
+  min_lead_days: 1
+  note: Awarded when an early symptom report precedes a confirmed alert. Feedback shows days of lead time.
+
+daily_ring:
+  segments:
+    - checkin_or_declared_skip
+    - todays_test_when_present
+
+crew_goal:
+  weekly_participation_target: 0.8
+  label: Crew participation this week

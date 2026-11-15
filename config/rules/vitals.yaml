@@ -1,0 +1,160 @@
+# Deterministic clinical alert rules — DRAFT, NEEDS_CLINICAL_REVIEW
+# The engine is pure: same daily features + baselines → same hits. Each threshold must be
+# validated by the team physician. Persistence reduces oscillation and false positives.
+status: NEEDS_CLINICAL_REVIEW
+version: 1
+rules:
+  - id: rule_spo2_low_sustained
+    status: NEEDS_CLINICAL_REVIEW
+    kind: metric
+    metric: spo2
+    mode: absolute
+    direction: below
+    thresholds: {yellow: 95, orange: 92, red: 89}
+    persistence_days: 2
+    min_observations: 1
+    quality: ok
+    protocol: low_oxygen
+    card_id: card_respiratory_distress
+    explain:
+      en: "Your oxygen saturation has been below {threshold} for {days} days. Sit still and repeat the measurement now."
+      it: "La saturazione di ossigeno è sotto il {threshold} da {days} giorni. Siediti e ripeti subito la misura."
+
+  - id: rule_skin_temp_elevated
+    status: NEEDS_CLINICAL_REVIEW
+    kind: metric
+    metric: skin_temp
+    mode: deviation
+    direction: above
+    thresholds: {yellow: 0.6, orange: 1.0, red: 1.5}
+    persistence_days: 2
+    min_observations: 2
+    quality: ok
+    protocol: fever
+    card_id: card_infection_fever
+    explain:
+      en: "Your skin temperature is {value} above your personal baseline for {days} days. Measure your oral temperature and hydrate."
+      it: "La temperatura cutanea è {value} sopra la tua baseline da {days} giorni. Misura la temperatura orale e bevi."
+
+  - id: rule_resting_hr_elevated
+    status: NEEDS_CLINICAL_REVIEW
+    kind: metric
+    metric: resting_hr
+    mode: deviation
+    direction: above
+    thresholds: {yellow: 7, orange: 15, red: 25}
+    persistence_days: 3
+    min_observations: 2
+    quality: ok
+    protocol: fever
+    card_id: card_infection_fever
+    explain:
+      en: "Your resting heart rate is {value} above your usual level for {days} days. This can accompany infection, dehydration or poor sleep."
+      it: "La frequenza cardiaca a riposo è {value} sopra il tuo valore abituale da {days} giorni. Può accompagnare infezioni, disidratazione o poco sonno."
+
+  - id: rule_hrv_depressed
+    status: NEEDS_CLINICAL_REVIEW
+    kind: metric
+    metric: hrv_rmssd
+    mode: percent_deviation
+    direction: below
+    thresholds: {yellow: -15, orange: -30, red: -45}
+    persistence_days: 3
+    min_observations: 2
+    quality: ok
+    protocol: fatigue
+    card_id: card_stress_load
+    explain:
+      en: "Your heart-rate variability is {value} below your baseline for {days} days. This is a non-specific sign of stress, poor sleep or illness."
+      it: "La variabilità cardiaca è {value} sotto la tua baseline da {days} giorni. È un segno aspecifico di stress, poco sonno o malattia."
+
+  - id: rule_sleep_deprivation
+    status: NEEDS_CLINICAL_REVIEW
+    kind: metric
+    metric: sleep_hours
+    mode: absolute
+    direction: below
+    thresholds: {yellow: 6.5, orange: 5.5, red: 4.0}
+    persistence_days: 3
+    min_observations: 2
+    quality: ok
+    protocol: fatigue
+    card_id: card_sleep_circadian
+    explain:
+      en: "Sleep has been under {threshold} for {days} days. Sleep loss affects attention, mood and recovery."
+      it: "Il sonno è stato sotto {threshold} per {days} giorni. Il poco sonno influenza attenzione, umore e recupero."
+
+  - id: rule_hydration_low
+    status: NEEDS_CLINICAL_REVIEW
+    kind: metric
+    metric: hydration
+    mode: absolute
+    direction: below
+    thresholds: {yellow: 3.0, orange: 2.2, red: 1.5}
+    persistence_days: 2
+    min_observations: 2
+    quality: ok
+    protocol: dehydration
+    card_id: card_dehydration
+    explain:
+      en: "Hydration reports have been low for {days} days. Drink fluids and check your urine colour."
+      it: "L'idratazione segnalata è bassa da {days} giorni. Bevi e controlla il colore delle urine."
+
+  - id: rule_pain_high
+    status: NEEDS_CLINICAL_REVIEW
+    kind: metric
+    metric: pain
+    mode: absolute
+    direction: above
+    thresholds: {yellow: 4.5, orange: 6.5, red: 8.5}
+    persistence_days: 1
+    min_observations: 1
+    quality: ok
+    protocol: null
+    card_id: card_wounds_msk
+    explain:
+      en: "You reported pain at {value} out of 10. Tell the CMO where it is and how it is changing."
+      it: "Hai segnalato dolore {value} su 10. Di' al CMO dove si trova e come sta cambiando."
+
+  - id: rule_co2_elevated
+    status: NEEDS_CLINICAL_REVIEW
+    kind: environment
+    metric: co2_ppm
+    mode: absolute
+    direction: above
+    thresholds: {yellow: 1200, orange: 2200, red: 3500}
+    persistence_days: 3
+    min_observations: 2
+    protocol: co2_mitigation
+    card_id: card_co2_exposure
+    explain:
+      en: "Cabin CO₂ has been above {threshold} for {days} days. Increase ventilation, reduce exertion and check the scrubber."
+      it: "La CO₂ in cabina è sopra {threshold} da {days} giorni. Aumenta la ventilazione, riduci lo sforzo e controlla lo scrubber."
+
+  - id: rule_critical_symptom
+    status: NEEDS_CLINICAL_REVIEW
+    kind: critical_symptom
+    level: red
+    explain:
+      en: "You reported {symptom}. This needs immediate assessment and CMO involvement."
+      it: "Hai segnalato {symptom}. Serve una valutazione immediata con il CMO."
+
+  - id: rule_critical_phrase
+    status: NEEDS_CLINICAL_REVIEW
+    kind: critical_phrase
+    level: red
+    explain:
+      en: "Your message mentions {symptom}. This needs immediate assessment and CMO involvement."
+      it: "Il tuo messaggio menziona {symptom}. Serve una valutazione immediata con il CMO."
+
+  - id: rule_sensor_quality
+    status: NEEDS_CLINICAL_REVIEW
+    kind: sensor_quality
+    metrics: [spo2]
+    lookback_days: 2
+    level: yellow
+    protocol: low_oxygen
+    card_id: card_sensor_quality
+    explain:
+      en: "The oxygen sensor readings conflict with your other signals. Repeat the measurement with another device. This is a data-quality issue, not an accusation."
+      it: "Le letture del sensore di ossigeno sono in conflitto con gli altri segnali. Ripeti la misura con un altro dispositivo. È un problema di qualità del dato, non un'accusa."

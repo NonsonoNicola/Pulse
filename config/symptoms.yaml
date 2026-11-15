@@ -1,0 +1,32 @@
+# Check-in symptom catalogue (bilingual) — NEEDS_CLINICAL_REVIEW
+status: NEEDS_CLINICAL_REVIEW
+symptoms:
+  - {id: headache, en: Headache, it: Mal di testa, group: neuro}
+  - {id: dizziness, en: Dizziness, it: Capogiri, group: neuro}
+  - {id: nausea, en: Nausea, it: Nausea, group: gi}
+  - {id: poor_appetite, en: Poor appetite, it: Poco appetito, group: gi}
+  - {id: abdominal_pain, en: Abdominal pain, it: Dolore addominale, group: gi}
+  - {id: fatigue, en: Unusual fatigue, it: Stanchezza insolita, group: general}
+  - {id: insomnia, en: Trouble sleeping, it: Difficoltà a dormire, group: sleep}
+  - {id: congestion, en: Nasal congestion, it: Naso chiuso, group: ent}
+  - {id: sore_throat, en: Sore throat, it: Mal di gola, group: ent}
+  - {id: cough, en: Cough, it: Tosse, group: respiratory}
+  - {id: shortness_of_breath, en: Shortness of breath, it: Fiato corto, group: respiratory}
+  - {id: chest_pain, en: Chest pain or pressure, it: Dolore o peso al petto, group: critical}
+  - {id: palpitations, en: Palpitations, it: Palpitazioni, group: cardio}
+  - {id: back_pain, en: Back pain, it: Mal di schiena, group: msk}
+  - {id: joint_pain, en: Joint pain, it: Dolore articolare, group: msk}
+  - {id: rash, en: Skin rash, it: Eruzione cutanea, group: skin}
+  - {id: wound, en: Wound or injury, it: Ferita o trauma, group: skin}
+  - {id: fever_feeling, en: Feeling feverish, it: Sensazione di febbre, group: general}
+  - {id: dehydration, en: Feeling dehydrated, it: Sensazione di disidratazione, group: general}
+  - {id: anxiety, en: Anxiety or stress, it: Ansia o stress, group: mental}
+  - {id: low_mood, en: Low mood, it: Umore basso, group: mental}
+
+# Critical symptoms force a red status through the deterministic classifier, regardless of the LLM.
+critical_symptoms:
+  chest_pain: {level: red, protocol: chest_pain, label_en: Chest pain, label_it: Dolore al petto}
+  shortness_of_breath: {level: red, protocol: low_oxygen, label_en: Severe breathing difficulty, label_it: Difficoltà respiratoria}
+  syncope: {level: red, protocol: low_oxygen, label_en: Loss of consciousness, label_it: Perdita di coscienza}
+  severe_bleeding: {level: red, protocol: wound_care, label_en: Severe bleeding, label_it: Emorragia importante}
+  suicidal_ideation: {level: red, protocol: mental_crisis, label_en: Psychological crisis, label_it: Crisi psicologica}

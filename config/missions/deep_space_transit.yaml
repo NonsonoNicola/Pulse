@@ -1,0 +1,19 @@
+id: deep_space_transit
+name: Deep Space Transit
+habitat: Transit vehicle · Beyond low Earth orbit
+description: Long transit with 3–22 minute one-way delay and conjunction blackouts.
+gravity: microgravity (0 g)
+radiation: 1.5–3.0 mSv/day
+environmental_risks: [radiation, co2, isolation, microgravity, communication_delay]
+medical_resources: [ultrasound, ecg, defibrillator, oxygen_supply, iv_fluids, medication_cabinet, splint]
+link:
+  latency_s: 600
+  jitter_s: 120
+  loss: 0.12
+  blackout_seconds: 7200
+  bandwidth_kbps: 300
+  description: 10-minute one-way delay with multi-hour conjunction blackouts.
+reference_adjustments:
+  resting_hr_delta: 1
+  spo2_delta: 0
+status: NEEDS_CLINICAL_REVIEW

@@ -1,0 +1,19 @@
+id: leo_station
+name: LEO Station
+habitat: Harmony module · Low Earth orbit
+description: Low Earth orbit station with near-continuous ground contact and periodic signal loss.
+gravity: microgravity (0 g)
+radiation: 0.3–0.6 mSv/day
+environmental_risks: [co2, confined_space, circadian_disruption, microgravity]
+medical_resources: [ultrasound, ecg, defibrillator, oxygen_supply, iv_fluids, medication_cabinet]
+link:
+  latency_s: 0.35
+  jitter_s: 0.15
+  loss: 0.03
+  blackout_seconds: 0
+  bandwidth_kbps: 1200
+  description: Near-continuous link with periodic loss-of-signal windows.
+reference_adjustments:
+  resting_hr_delta: 0
+  spo2_delta: 0
+status: NEEDS_CLINICAL_REVIEW

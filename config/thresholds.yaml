@@ -1,0 +1,100 @@
+# Clinical thresholds — DRAFT, NEEDS_CLINICAL_REVIEW
+# Starting values informed by public space-medicine literature; the team physician must validate
+# every number before any real use. Values are consumed by the rules engine and baseline analysis.
+status: NEEDS_CLINICAL_REVIEW
+version: 1
+
+population_ranges:
+  resting_hr: {center: 62, spread: 9, low: 45, high: 95, unit: bpm}
+  hrv_rmssd: {center: 48, spread: 14, low: 20, high: 110, unit: ms}
+  spo2: {center: 98, spread: 1.0, low: 94, high: 100, unit: "%"}
+  skin_temp: {center: 36.4, spread: 0.35, low: 35.0, high: 37.8, unit: C}
+  respiratory_rate: {center: 14, spread: 2, low: 8, high: 24, unit: breaths/min}
+  sleep_hours: {center: 7.1, spread: 0.8, low: 5.0, high: 9.5, unit: h}
+  sleep_efficiency: {center: 88, spread: 5, low: 70, high: 100, unit: "%"}
+  mood: {center: 3.9, spread: 0.65, low: 1, high: 5, unit: 1-5}
+  energy: {center: 3.8, spread: 0.7, low: 1, high: 5, unit: 1-5}
+  symptom_load: {center: 0.4, spread: 0.6, low: 0, high: 10, unit: score}
+  hydration: {center: 4.0, spread: 0.6, low: 1, high: 5, unit: 1-5}
+  pain: {center: 0.2, spread: 0.5, low: 0, high: 10, unit: 0-10}
+  activity_min: {center: 55, spread: 15, low: 0, high: 180, unit: min}
+  co2_ppm: {center: 900, spread: 180, low: 400, high: 5000, unit: ppm}
+  cabin_temp_c: {center: 22.5, spread: 0.8, low: 18, high: 27, unit: C}
+  humidity_pct: {center: 45, spread: 5, low: 25, high: 65, unit: "%"}
+  pressure_kpa: {center: 101.3, spread: 0.5, low: 95, high: 105, unit: kPa}
+  noise_db: {center: 58, spread: 5, low: 35, high: 85, unit: dB}
+  radiation_usv: {center: 450, spread: 80, low: 0, high: 5000, unit: uSv/day}
+
+quality:
+  plausible:
+    resting_hr: [25, 220]
+    hrv_rmssd: [5, 300]
+    spo2: [60, 100]
+    skin_temp: [28, 42]
+    respiratory_rate: [4, 60]
+    sleep_hours: [0, 16]
+    sleep_efficiency: [0, 100]
+    mood: [1, 5]
+    energy: [1, 5]
+    hydration: [1, 5]
+    activity_min: [0, 1440]
+    co2_ppm: [200, 10000]
+    cabin_temp_c: [-20, 60]
+    humidity_pct: [0, 100]
+    pressure_kpa: [30, 120]
+    noise_db: [20, 130]
+    radiation_usv: [0, 5000]
+  flatline_window: 3
+  future_tolerance_minutes: 5
+  spo2_discordance:
+    enabled: true
+    spo2_below: 93
+    hr_normal: [45, 105]
+    respiratory_rate_normal: [8, 24]
+  sensor_weight_decay:
+    suspect: 0.25
+    invalid: 0.0
+    estimated: 0.6
+
+baseline:
+  reference_days: 50
+  exclude_recent_days: 10
+  min_observations: 10
+  mad_scale: 1.4826
+  min_spread:
+    resting_hr: 2.0
+    hrv_rmssd: 3.0
+    spo2: 0.6
+    skin_temp: 0.15
+    respiratory_rate: 1.0
+    sleep_hours: 0.3
+    sleep_efficiency: 2.0
+    mood: 0.25
+    energy: 0.25
+    symptom_load: 0.2
+    hydration: 0.25
+    pain: 0.2
+    activity_min: 5.0
+  freeze_levels: [orange, red]
+
+coverage:
+  expected_signals_per_day: 5
+  min_confidence_coverage: 0.4
+  good_coverage: 0.75
+  min_recent_observations: 2
+
+crew:
+  deviation_z_threshold: 1.5
+  min_members: 2
+  correlation_window_days: 30
+  lags_days: [-3, -2, -1, 0, 1, 2, 3]
+  min_abs_r: 0.4
+  max_p_value: 0.1
+  permutations: 300
+
+autonomy:
+  live_max_rtt_s: 30
+  async_max_rtt_s: 1800
+  assisted_max_rtt_s: 86400
+  # above assisted_max_rtt_s → full autonomy
+  hysteresis: 0.2

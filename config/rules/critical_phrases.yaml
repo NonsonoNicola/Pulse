@@ -1,0 +1,60 @@
+# Critical phrase classifier (deterministic, bilingual) — NEEDS_CLINICAL_REVIEW
+# Matched against user check-in notes and chat messages. Intentionally conservative: better to
+# escalate for review than to miss a red flag. False positives are resolved by the CMO.
+status: NEEDS_CLINICAL_REVIEW
+phrases:
+  - id: chest_pain
+    level: red
+    protocol: chest_pain
+    label_en: Chest pain or pressure
+    label_it: Dolore o peso al petto
+    en:
+      - "chest pain"
+      - "pain in my chest"
+      - "pressure in my chest"
+      - "tight chest"
+      - "crushing chest"
+    it:
+      - "dolore al petto"
+      - "dolore toracico"
+      - "peso al petto"
+      - "petto stretto"
+      - "oppressione al petto"
+  - id: breathing_difficulty
+    level: red
+    protocol: low_oxygen
+    label_en: Severe breathing difficulty
+    label_it: Difficoltà respiratoria
+    en:
+      - "cannot breathe"
+      - "can't breathe"
+      - "difficulty breathing"
+      - "shortness of breath"
+      - "gasping"
+    it:
+      - "non riesco a respirare"
+      - "difficolta a respirare"
+      - "difficoltà a respirare"
+      - "fiato corto"
+      - "respiro corto"
+  - id: syncope
+    level: red
+    protocol: low_oxygen
+    label_en: Loss of consciousness
+    label_it: Perdita di coscienza
+    en: ["passed out", "fainted", "lost consciousness", "blacked out"]
+    it: ["svenuto", "svenuta", "perso i sensi", "persa i sensi"]
+  - id: severe_bleeding
+    level: red
+    protocol: wound_care
+    label_en: Severe bleeding
+    label_it: Emorragia importante
+    en: ["heavy bleeding", "bleeding heavily", "won't stop bleeding", "severe bleeding"]
+    it: ["emorragia", "sanguinamento abbondante", "sangue che non si ferma"]
+  - id: mental_crisis
+    level: red
+    protocol: mental_crisis
+    label_en: Psychological crisis
+    label_it: Crisi psicologica
+    en: ["want to die", "kill myself", "end my life", "suicidal", "self-harm", "hurt myself"]
+    it: ["voglio morire", "uccidermi", "farla finita", "suicida", "farmi del male", "autolesionismo"]

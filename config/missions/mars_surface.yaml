@@ -1,0 +1,19 @@
+id: mars_surface
+name: Mars Surface
+habitat: Mars surface habitat · Jezero region
+description: Mars surface mission with up to 22-minute one-way delay and planetary conjunction blackouts.
+gravity: 0.38 g
+radiation: 1.8–3.5 mSv/day (shielded habitat)
+environmental_risks: [radiation, dust, reduced_gravity, isolation, communication_delay, thermal_extremes]
+medical_resources: [ultrasound, ecg, defibrillator, oxygen_supply, iv_fluids, medication_cabinet, splint]
+link:
+  latency_s: 1320
+  jitter_s: 180
+  loss: 0.15
+  blackout_seconds: 21600
+  bandwidth_kbps: 200
+  description: 22-minute one-way delay; conjunction blackouts measured in weeks.
+reference_adjustments:
+  resting_hr_delta: 1
+  spo2_delta: 0
+status: NEEDS_CLINICAL_REVIEW

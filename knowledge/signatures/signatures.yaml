@@ -1,0 +1,54 @@
+# Expectation signatures for differential hypotheses — written as starting points,
+# NEEDS_CLINICAL_REVIEW. Weights express expected direction of change vs personal baseline.
+# Positive weight = feature expected to rise; negative = expected to fall.
+status: NEEDS_CLINICAL_REVIEW
+signatures:
+  - id: signature_co2_exposure
+    title: Common CO₂ exposure pattern
+    card_id: card_co2_exposure
+    weights:
+      sleep_hours: -1.0
+      hrv_rmssd: -0.8
+      resting_hr: 0.5
+      symptom_load: 0.8
+      mood: -0.5
+      energy: -0.5
+  - id: signature_infection
+    title: Possible infection / febrile response
+    card_id: card_infection_fever
+    weights:
+      skin_temp: 1.3
+      resting_hr: 1.0
+      hrv_rmssd: -0.8
+      sleep_hours: -0.5
+      symptom_load: 0.9
+      energy: -0.7
+  - id: signature_sleep_stress
+    title: Sleep debt / cumulative stress
+    card_id: card_sleep_circadian
+    weights:
+      sleep_hours: -1.2
+      hrv_rmssd: -0.7
+      mood: -0.8
+      energy: -0.9
+      symptom_load: 0.5
+      resting_hr: 0.4
+  - id: signature_dehydration
+    title: Dehydration
+    card_id: card_dehydration
+    weights:
+      hydration: -1.2
+      resting_hr: 0.8
+      hrv_rmssd: -0.5
+      energy: -0.6
+      symptom_load: 0.5
+      skin_temp: 0.4
+  - id: signature_cardiac_event
+    title: Cardiac symptom pattern
+    card_id: card_chest_pain
+    weights:
+      pain: 1.4
+      resting_hr: 0.8
+      spo2: -0.9
+      symptom_load: 1.2
+      energy: -0.7

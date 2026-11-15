@@ -1,0 +1,98 @@
+# Onboard medical inventory — synthetic, NEEDS_CLINICAL_REVIEW
+# The assistant may only recommend resources present here. Quantities are demo values.
+status: NEEDS_CLINICAL_REVIEW
+items:
+  - id: thermometer
+    name: Oral thermometer
+    category: device
+    quantity: 2
+    reusable: true
+  - id: bp_cuff
+    name: Blood pressure cuff
+    category: device
+    quantity: 1
+    reusable: true
+  - id: pulse_oximeter
+    name: Pulse oximeter
+    category: device
+    quantity: 2
+    reusable: true
+  - id: stethoscope
+    name: Stethoscope
+    category: device
+    quantity: 2
+    reusable: true
+  - id: ecg
+    name: 12-lead ECG
+    category: device
+    quantity: 1
+    reusable: true
+  - id: ultrasound
+    name: Portable ultrasound
+    category: device
+    quantity: 1
+    reusable: true
+  - id: defibrillator
+    name: Automated external defibrillator
+    category: device
+    quantity: 1
+    reusable: true
+  - id: oxygen_supply
+    name: Oxygen supply and mask
+    category: supply
+    quantity: 4
+    reusable: false
+    unit: hours
+  - id: iv_fluids
+    name: Intravenous fluids
+    category: medication
+    quantity: 6
+    reusable: false
+    unit: bags
+  - id: medication_cabinet
+    name: Medication cabinet (analgesics, antihistamines, antiemetics)
+    category: medication
+    quantity: 1
+    reusable: false
+  - id: aspirin
+    name: Aspirin (chewable)
+    category: medication
+    quantity: 12
+    reusable: false
+    unit: tablets
+  - id: oral_rehydration_salts
+    name: Oral rehydration salts
+    category: medication
+    quantity: 10
+    reusable: false
+    unit: sachets
+  - id: bandages
+    name: Sterile dressings and bandages
+    category: supply
+    quantity: 20
+    reusable: false
+  - id: splint
+    name: Splint set
+    category: device
+    quantity: 1
+    reusable: true
+  - id: glucometer
+    name: Glucometer and strips
+    category: device
+    quantity: 1
+    reusable: false
+  - id: scale
+    name: Body mass scale
+    category: device
+    quantity: 1
+    reusable: true
+  - id: urine_test_strips
+    name: Urine test strips
+    category: supply
+    quantity: 30
+    reusable: false
+  - id: cooling_pack
+    name: Cooling pack
+    category: supply
+    quantity: 4
+    reusable: true

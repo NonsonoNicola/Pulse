@@ -1,0 +1,19 @@
+id: stress_test_far
+name: Stress Test — Far
+habitat: Experimental long-duration habitat
+description: Synthetic stress profile beyond any planned mission; days-to-weeks delay to demonstrate full autonomy.
+gravity: 0.38 g
+radiation: 2.0 mSv/day
+environmental_risks: [communication_delay, isolation, radiation]
+medical_resources: [ultrasound, ecg, defibrillator, oxygen_supply, iv_fluids, medication_cabinet, splint]
+link:
+  latency_s: 604800
+  jitter_s: 3600
+  loss: 0.25
+  blackout_seconds: 604800
+  bandwidth_kbps: 50
+  description: One-week one-way delay. Simulated worst case for full-autonomy behaviour.
+reference_adjustments:
+  resting_hr_delta: 1
+  spo2_delta: 0
+status: NEEDS_CLINICAL_REVIEW
